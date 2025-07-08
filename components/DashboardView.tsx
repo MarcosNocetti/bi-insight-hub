@@ -10,7 +10,6 @@ interface DashboardViewProps {
   visualization: Visualization | null;
 }
 
-// Componente auxiliar para o card de resultado da análise
 const AnalysisCard: React.FC<{ result: AnalysisResult }> = ({ result }) => (
     <div className="mt-6 bg-background border border-border rounded-xl p-6 space-y-6">
         <div>
@@ -32,7 +31,6 @@ const AnalysisCard: React.FC<{ result: AnalysisResult }> = ({ result }) => (
     </div>
 );
 
-// Componente principal da visualização do dashboard
 const DashboardView: React.FC<DashboardViewProps> = ({ visualization }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -152,7 +150,6 @@ const DashboardView: React.FC<DashboardViewProps> = ({ visualization }) => {
         const result = await analyzeDashboard(visualization.id, base64Image);
         if (result) {
             setAnalysis(result);
-            // Adicionar a nova análise ao topo do histórico
             setPastInsights(prev => [{...result, id: 'new', visualization_id: visualization.id, created_at: new Date().toISOString()}, ...prev]);
             initializeChat(result);
         } else {

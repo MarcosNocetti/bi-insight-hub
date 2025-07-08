@@ -23,7 +23,6 @@ Não inclua nenhum texto, explicação ou formatação de markdown (como \`\`\`j
 function ensureArray(value: any): string[] {
   if (Array.isArray(value)) return value;
 
-  // Caso venha como JSON string (com ou sem escape)
   try {
     const parsed = JSON.parse(value);
     if (Array.isArray(parsed)) return parsed;
@@ -31,7 +30,6 @@ function ensureArray(value: any): string[] {
     // Ignora erro de parse
   }
 
-  // Se ainda não for array, tentar quebrar por vírgula
   if (typeof value === 'string') {
     return value
       .split(/\s*,\s*(?=(?:[^"]*"[^"]*")*[^"]*$)/) // Split por vírgula fora de aspas
@@ -70,11 +68,9 @@ export const analyzeAndSave = async (visualizationId: string, base64Image: strin
 
     const analysisResult: AnalysisResult = JSON.parse(jsonStr);
 
-    // Garante que key_insights e recommendations sejam arrays
     analysisResult.key_insights = ensureArray(analysisResult.key_insights);
     analysisResult.recommendations = ensureArray(analysisResult.recommendations);
 
-    // Salva o resultado no banco
     await insightRepository.create(visualizationId, analysisResult);
 
     return analysisResult;
