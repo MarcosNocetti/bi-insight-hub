@@ -1,0 +1,9 @@
+
+{
+  "name": "BI Insight Hub",
+  "description": "An application to manage, view, and analyze BI dashboard iframes using AI-powered insights. Add your BI iframes, switch between them, and leverage Gemini to generate data analysis from dashboard screenshots.",
+  "requestFramePermissions": [
+    "camera",
+    "display-capture"
+  ]
+}
